@@ -38,9 +38,9 @@ if [[ `ruby -v` == "ruby 1"* ]]; then
   rbenv download 2.2.1
   rbenv rehash
   rbenv local 2.2.1
-else
-  echo "-----> Using `ruby -v`"
 fi
+
+echo "-----> Using `ruby -v`"
 
 # download and upack packages
 echo "-----> Fetching nginx binaries"
