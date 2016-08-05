@@ -67,7 +67,7 @@ fi
 
 export GEM_HOME=$BUILD_DIR/.gems
 export PATH=$BUILD_DIR/.gems/bin:$PATH
-gem update --system
+gem update --system --no-document --quiet
 
 
 if [ ! -f $BUILD_DIR/.gems/bin/jekyll ]; then
