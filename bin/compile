@@ -65,21 +65,12 @@ if [ ! -f $BUILD_DIR/conf/mime.types ]; then
   cp $LP_DIR/conf/mime.types $BUILD_DIR/conf/mime.types
 fi
 
-export GEM_HOME=$BUILD_DIR/.gems
-export PATH=$BUILD_DIR/.gems/bin:$PATH
+
 gem update --system --no-document --quiet
 
 
-if [ ! -f $BUILD_DIR/.gems/bin/jekyll ]; then
-    echo "Jekyll not found!"
-    echo "-----> Installing Jekyll"
-    gem install liquid -v 2.2.2 --no-rdoc --no-ri | indent
-    gem install jekyll redcarpet sass --no-rdoc --no-ri | indent
-    gem install therubyracer --no-rdoc --no-ri | indent
-
-    if [ -f $BUILD_DIR/Gemfile ]; then
-      gem install bundler --no-rdoc --no-ri | indent
-    fi
+if [ -f $BUILD_DIR/Gemfile ]; then
+  gem install bundler --no-rdoc --no-ri | indent
 fi
 
 # Set charset to avoid https://github.com/jekyll/jekyll/issues/4268
@@ -92,13 +83,10 @@ echo "-----> Building Jekyll site"
 cd $BUILD_DIR
 
 if [ -f $BUILD_DIR/Gemfile ]; then
-  $BUILD_DIR/.gems/bin/bundle install --binstubs=$BUILD_DIR/.gems/bin --path=$BUILD_DIR/.gems | indent
+  bundle install
 fi
 
-$BUILD_DIR/.gems/bin/jekyll build | indent
-if [ -f sass/style.scss ]; then
-  $BUILD_DIR/.gems/bin/sass sass/style.scss style.css | indent
-fi
+bundle exec jekyll build
 
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
