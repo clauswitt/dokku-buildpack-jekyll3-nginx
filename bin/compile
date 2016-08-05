@@ -65,6 +65,7 @@ if [ ! -f $BUILD_DIR/conf/mime.types ]; then
   cp $LP_DIR/conf/mime.types $BUILD_DIR/conf/mime.types
 fi
 
+gem update --system
 export GEM_HOME=$BUILD_DIR/.gems
 export PATH=$BUILD_DIR/.gems/bin:$PATH
 
