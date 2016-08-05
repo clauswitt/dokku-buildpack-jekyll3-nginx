@@ -65,27 +65,16 @@ if [ ! -f $BUILD_DIR/conf/mime.types ]; then
   cp $LP_DIR/conf/mime.types $BUILD_DIR/conf/mime.types
 fi
 
-
-gem update --system --no-document --quiet
-
-
-if [ -f $BUILD_DIR/Gemfile ]; then
-  gem install bundler --no-rdoc --no-ri | indent
-fi
-
 # Set charset to avoid https://github.com/jekyll/jekyll/issues/4268
 echo "-----> Setting UTF-8 environment"
 export LC_ALL=C.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
-echo "-----> Building Jekyll site"
+gem update --system --no-document --quiet
+gem install bundler --no-rdoc --no-ri | indent
 cd $BUILD_DIR
-
-if [ -f $BUILD_DIR/Gemfile ]; then
-  bundle install
-fi
-
+bundle install
 bundle exec jekyll build
 
 # build a startup script
