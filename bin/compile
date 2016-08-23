@@ -61,7 +61,7 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
 cd $BUILD_DIR
-#bundle exec jekyll build
+bundle exec jekyll build
 
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
